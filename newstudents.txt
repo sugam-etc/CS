@@ -1,0 +1,85 @@
+class NewAcc:
+    def __init__(self,mainwindow):
+        outer_container = Label(mainwindow,width=10,height=10,bg='black',fg='white')
+        name = Entry(outer_container,font=('Arial',40,'bold'))
+        name.pack()
+        grade = Entry(outer_container,font=('Arial',40,'bold'))
+        grade.pack()
+        outer_container.pack()
+        def DataSave():
+            file = open('newstudents.txt','w')
+            file.write(name.get())
+            file.close
+            loginessentials.append({'username': name.get(), 'passwrod' : grade.get()})
+            outer_container.destroy()
+        save_btn = Button(outer_container,text="Save",font=('Arial',40,'bold'),command=DataSave)
+        save_btn.pack()
+        
+
+#Function to Check the checkbox is onvalued or offvalued
+def isChecked():
+    if(x.get() == 0):
+        checkin_btn['state'] = DISABLED
+    elif(x.get() == 1):
+        checkin_btn['state'] = NORMAL
+#Checking Method Selection Window
+def checkIn():
+    #Creating New Window
+    new_win = Toplevel(root)
+    new_win.geometry('400x400')
+
+    #Login Options
+    options = Listbox(new_win,width=19,font=('Arial',20,'bold'))
+    options.config(height=options.size())
+
+    options.insert(1,'Student')
+    options.insert(2,'Staff')
+    options.insert(3,'Create Account')
+    options.pack(pady=10)
+
+    
+    
+    #Submit Button
+    def Submit_CheckIn_Method():
+        login_index = options.curselection()
+        print(f'YOu will be logined as {login_index}')
+        if(0 in login_index):
+            print("Stud")
+            index = 'student'
+            win = LOGIN_FORM()
+        elif(1 in login_index):
+            win = LOGIN_FORM()
+            print("Staff")
+            index = 'staff'
+        elif(2 in login_index):
+            print("New Acc")
+            xyz = NewAcc(root)
+        new_win.destroy()
+    
+
+        
+    btn = Button(new_win,text='Submit',command=Submit_CheckIn_Method)
+    btn.pack(pady=20)
+
+
+
+
+
+
+
+    def OnLoginSuccess():
+    display = Toplevel(root)
+    display.geometry('700x50')
+    display.title("Login Status")
+    log = Label(display,font=('Arial',60,'bold'),text="Login Success")
+    
+    
+    log.pack()
+    def closingroot():
+        winx = MAINPAGE(root,username_)
+        display.destroy()
+        checkin_btn.destroy()
+        checkbox_init.destroy()
+        
+    temp = threading.Timer(1.0,closingroot)
+    temp.start()
